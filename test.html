@@ -26,12 +26,12 @@
             <div class="mb-3">
                 <label class="form-label">ルール</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rule" id="rule-2" value="2" checked>
-                    <label class="form-check-label" for="rule-2">天鳳ルール（段位戦 七段）</label>
+                    <input class="form-check-input" type="radio" name="rule" id="rule-1" value="1" checked>
+                    <label class="form-check-label" for="rule-1">Mリーグルール（25,000点持ち 30,000点返し ウマ1-3）</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rule" id="rule-1" value="1">
-                    <label class="form-check-label" for="rule-1">Mリーグルール（25,000点持ち 30,000点返し ウマ1-3）</label>
+                    <input class="form-check-input" type="radio" name="rule" id="rule-2" value="2">
+                    <label class="form-check-label" for="rule-2">天鳳ルール（段位戦 七段）</label>
                 </div>
             </div>
             <div class="mb-3">
@@ -64,12 +64,11 @@
             <div class="mb-3">
                 <label class="form-label">持ち点</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-1" value="15000"
-                        checked>
+                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-1" value="15000">
                     <label class="form-check-label" for="yourPoint-1">14,000点 ~ 16,000点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-2" value="25000">
+                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-2" value="25000" checked>
                     <label class="form-check-label" for="yourPoint-2">24,000点 ~ 26,000点</label>
                 </div>
                 <div class="form-check">
@@ -84,35 +83,35 @@
             <div class="mb-3">
                 <label class="form-label">打点</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="score" id="score-1" value="1" checked>
-                    <label class="form-check-label" for="score-1">子 1000点 親 1500点</label>
+                    <input class="form-check-input" type="radio" name="han" id="han-1" value="1" checked>
+                    <label class="form-check-label" for="han-1">子 1000点 親 1500点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="score" id="score-2" value="2">
-                    <label class="form-check-label" for="score-2">子 2000点 親 2900点</label>
+                    <input class="form-check-input" type="radio" name="han" id="han-2" value="2">
+                    <label class="form-check-label" for="han-2">子 2000点 親 2900点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="score" id="score-3" value="3">
-                    <label class="form-check-label" for="score-3">子 3900点 親 5800点</label>
+                    <input class="form-check-input" type="radio" name="han" id="han-3" value="3">
+                    <label class="form-check-label" for="han-3">子 3900点 親 5800点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="score" id="score-4" value="4">
-                    <label class="form-check-label" for="score-4">子 7700点 親 11600点</label>
+                    <input class="form-check-input" type="radio" name="han" id="han-4" value="4">
+                    <label class="form-check-label" for="han-4">子 7700点 親 11600点</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">供託</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="deposit" id="deposit-1" value="1000" checked>
-                    <label class="form-check-label" for="deposit-1">1000点</label>
+                    <input class="form-check-input" type="radio" name="kyotaku" id="kyotaku-1" value="1000" checked>
+                    <label class="form-check-label" for="kyotaku-1">1000点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="deposit" id="deposit-2" value="2000">
-                    <label class="class=" form-check-label" for="deposit-2">2000点</label>
+                    <input class="form-check-input" type="radio" name="kyotaku" id="kyotaku-2" value="2000">
+                    <label class="class=" form-check-label" for="kyotaku-2">2000点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="deposit" id="deposit-3" value="3000">
-                    <label class="form-check-label" for="deposit-3">3000点</label>
+                    <input class="form-check-input" type="radio" name="kyotaku" id="kyotaku-3" value="3000">
+                    <label class="form-check-label" for="kyotaku-3">3000点</label>
                 </div>
             </div>
             <div class="mb-3">
@@ -216,7 +215,8 @@
     function check() {
         const rule = document.querySelector('input[name="rule"]:checked').value;
         const ba = document.querySelector('input[name="ba"]:checked').value;
-        const score = document.querySelector('input[name="score"]:checked').value;
+        const han = document.querySelector('input[name="han"]:checked').value;
+        const kyotaku = document.querySelector('input[name="kyotaku"]:checked').value;
         const yourPoint = document.querySelector('input[name="yourPoint"]:checked').value;
         const isRyokei = document.querySelector('input[name="isRyokei"]:checked').value;
         const hojuRate = document.querySelector('input[name="hojuRate"]:checked').value;
@@ -227,85 +227,122 @@
 
         const result = document.querySelector('#result');
 
-        if (rule === "tenhou") {
-            // TODO これは消す
-            result.textContent = "天鳳ルールは未対応です";
-            result.style.backgroundColor = "#FFFFFF";
-        } else {
-            const yourScore = this.getYourScore(score);
-            const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
+        const yourScore = this.getYourScore(rule, han, kyotaku, youAreParent);
+        const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
 
-            console.log("あなたの打点 = " + yourScore);
-            console.log("要求打点 = " + requiredScore);
+        console.log("----------- 判定 ----------- ");
+        console.log("あなたの打点 = " + yourScore);
+        console.log("要求打点 = " + requiredScore);
 
-            // TODO requiredScoreがundefinedの場合（例えば自分も相手も親を選択された場合）の処理を追加する
+        if (yourScore === undefined || requiredScore === undefined) {
+            result.textContent = "判定できません";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#880000";
+            console.log("判定できません");
 
-            if (yourScore > requiredScore) {
-                result.textContent = "押し！";
-                result.style.color = "#fff";
-                result.style.backgroundColor = "#2cb696";
-            } else {
-                result.textContent = "降り！";
-                result.style.color = "#fff";
-                result.style.backgroundColor = "#C94055";
-            }
+            return;
         }
+
+        // TODO requiredScoreがundefinedの場合（例えば自分も相手も親を選択された場合）の処理を追加する
+
+        if (yourScore > requiredScore) {
+            result.textContent = "押し！";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#2cb696";
+            console.log("押し！");
+        } else {
+            result.textContent = "降り！";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#C94055";
+            console.log("降り！");
+        }
+
     }
 
-    function getYourScore(score) {
-        // TODO 打点を計算するロジックを実装する
-        score = parseInt(score);
+    function getYourScore(rule, han, kyotaku, youAreParent) {
+        console.log("----------- あなたの打点を取得 ----------- ");
+        var yourScore;
 
-        // TODO 親の場合の打点の計算
+        // このアプリでは30符固定
+        const fu = 30;
 
-        // TODO これはダミーのロジック
-        score = score * 1000;
+        console.log("ルール = " + rule);
+        console.log("符 = " + fu);
+        console.log("翻 = " + han);
+        console.log("親であるか = " + youAreParent);
 
-        // TODO 供託
+        const ms = this.getArrayFromCsv("mahjong_score.csv");
 
-        return score;
+        // 配列の中から、パラメータが一致するものを検索
+        for (var i = 0; i < ms.length; i++) {
+            if (rule == ms[i].rule && fu == ms[i].fu && han == ms[i].han && youAreParent == ms[i].youAreParent) {
+
+                // 打点を取得
+                yourScore = parseInt(ms[i].score);
+
+                break;
+            }
+        }
+
+        if (yourScore === undefined) {
+            return undefined;
+        }
+
+        console.log("あなたの打点 = " + yourScore);
+        console.log("供託 = " + kyotaku);
+
+        yourScore += parseInt(kyotaku);
+
+        console.log("供託追加後のあなたの打点 = " + yourScore);
+
+        return yourScore;
     }
 
     function getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
+        console.log("----------- 要求打点を取得 ----------- ");
+        var requiredScore;
+
         // 押し引き表を取得
         const oc = this.getArrayFromCsv("oshihiki.csv");
-
-        var score;
 
         // 配列の中から、パラメータが一致するものを検索
         for (var i = 0; i < oc.length; i++) {
             if (hojuRate == oc[i].hojuRate && junme == oc[i].junme && oponentIsParent == oc[i].oponentIsParent && youAreParent == oc[i].youAreParent && isRyokei == oc[i].isRyokei && isDora == oc[i].isDora) {
 
                 // 要求打点を取得
-                score = parseInt(oc[i].score);
+                requiredScore = parseInt(oc[i].score);
 
                 break;
             }
         }
 
+        if (requiredScore === undefined) {
+            return undefined;
+        }
+
         // 和了価値を取得
         horaValue = this.getHoraValue(rule, ba, yourPoint);
-        console.log("和了価値による調整前の要求打点 = " + score);
+        console.log("和了価値による調整前の要求打点 = " + requiredScore);
 
         // 要求打点を和了価値で調整
         //   例えば、天鳳ルール、南2局、持ち点が15000点だと、和了の価値は通常の1.57倍になる。
         //   和了の価値が高くなるとき、要求打点は下がるので、要求打点を和了価値で割って調整する。
-        score /= horaValue;
-        console.log("和了価値による調整後の要求打点 = " + score);
+        requiredScore /= horaValue;
+        console.log("和了価値による調整後の要求打点 = " + requiredScore);
 
         // 100の位で切り捨て
         //   例）16340.129 -> 16300
-        score = Math.floor(score / 100) * 100;
-        console.log("100の位で切り捨てた後の要求打点 = " + score);
+        requiredScore = Math.floor(requiredScore / 100) * 100;
+        console.log("100の位で切り捨てた後の要求打点 = " + requiredScore);
 
-        return score;
+        return requiredScore;
     }
 
     function getHoraValue(rule, ba, yourPoint) {
+        var horaValue;
+
         // 和了価値指標を取得
         const hvi = this.getArrayFromCsv("hora_value_index.csv");
-
-        var horaValue;
 
         // 配列の中から、パラメータが一致するものを検索
         for (var i = 0; i < hvi.length; i++) {
