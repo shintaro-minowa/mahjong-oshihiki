@@ -226,10 +226,10 @@
             result.textContent = "天鳳ルールは未対応です";
             result.style.backgroundColor = "#FFFFFF";
         } else {
-            const your_score = this.getYourScore(score);
-            const required_score = this.getRequiredScore(score);
+            const yourScore = this.getYourScore(score);
+            const requiredScore = this.getRequiredScore(score);
 
-            if (your_score > required_score) {
+            if (yourScore > requiredScore) {
                 result.textContent = "押し！";
                 result.style.backgroundColor = "#DFF0D8";
             } else {
