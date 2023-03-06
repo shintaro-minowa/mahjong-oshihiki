@@ -238,7 +238,13 @@
             const thresholdDelta = delta / 100.0;
             const probability = order === "8" ? 0.25 : order === "11" ? 0.33 : 0.5;
             const expectedValue = probability * thresholdDelta + (1 - probability) * (-300 / 3.0);
-            if (expectedValue > 0) {
+
+            // TODO 打点を計算するロジックを実装する
+            const your_score = parseInt(score);
+
+            // TODO 要求打点を計算するロジックを実装する
+            const required_point = 2000;
+            if (your_score > required_point) {
                 result.textContent = "押し！";
                 result.style.backgroundColor = "#DFF0D8";
             } else {
