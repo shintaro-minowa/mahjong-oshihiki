@@ -16,6 +16,22 @@
             background-color: #f8d7da;
         }
 
+        ul li {
+            list-style-type: none;
+        }
+
+        ul.list-inline {
+            display: flex;
+            justify-content: center;
+        }
+
+        ul.list-inline li {
+            display: inline-flex;
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+        }
+
     </style>
 </head>
 
@@ -207,6 +223,22 @@
                 <div id="result" class="p-3" style="text-align: center;"></div>
             </div>
     </div>
+
+    <footer class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>参考文献</p>
+                    <ul>
+                        <li><a href="https://example.com">書籍名</a></li>
+                        <li><a href="https://example.com">書籍名</a></li>
+                        <li><a href="https://example.com">書籍名</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
