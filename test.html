@@ -259,6 +259,25 @@
 
     function getRequiredScore() {
         // TODO 要求打点を計算するロジックを実装する
+        var request = new XMLHttpRequest();
+        request.open("GET", "oshihiki.csv", false);
+        request.send(null);
+
+        var csvData = request.responseText;
+        var lines = csvData.split("\n");
+        var result = [];
+        var headers = lines[0].split(",");
+        for (var i = 1; i < lines.length; i++) {
+            var obj = {};
+            var currentLine = lines[i].split(",");
+            for (var j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentLine[j];
+            }
+            result.push(obj);
+        }
+
+        var value = result[0];
+
         return 2000;
     }
 </script>

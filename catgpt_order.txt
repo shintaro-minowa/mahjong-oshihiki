@@ -83,3 +83,5 @@ bootstrap5を使って。レスポンシブにして。スマホから見た時�
 一発 or ドラ
   Yes
   No
+
+javascriptでcsvファイルから値を取得する方法は？
