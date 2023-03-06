@@ -218,6 +218,7 @@
         const round = document.querySelector('input[name="round"]:checked').value;
         const score = document.querySelector('input[name="score"]:checked').value;
         const point = document.querySelector('input[name="point"]:checked').value;
+        const isRyokei = document.querySelector('input[name="isRyokei"]:checked').value;
         const hojuRate = document.querySelector('input[name="hojuRate"]:checked').value;
         const junme = document.querySelector('input[name="junme"]:checked').value;
         const youAreParent = document.querySelector('input[name="youAreParent"]:checked').value;
@@ -225,12 +226,18 @@
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
         const result = document.querySelector('#result');
+
         if (rule === "tenhou") {
             result.textContent = "天鳳ルールは未対応です";
             result.style.backgroundColor = "#FFFFFF";
         } else {
             const yourScore = this.getYourScore(score);
-            const requiredScore = this.getRequiredScore(score);
+            const requiredScore = this.getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
+
+            console.log("Your score is " + yourScore);
+            console.log("Required score is " + requiredScore);
+
+            // TODO requiredScoreがundefinedの場合（例えば自分も相手も親を選択された場合）の処理を追加する
 
             if (yourScore > requiredScore) {
                 result.textContent = "押し！";
@@ -244,11 +251,13 @@
 
     function getYourScore(score) {
         // TODO 打点を計算するロジックを実装する
+        score = parseInt(score);
+
         return score;
     }
 
-    function getRequiredScore() {
-        // TODO 要求打点を計算するロジックを実装する
+    function getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
+        // oshihiki.csv を配列に変換
         var request = new XMLHttpRequest();
         request.open("GET", "oshihiki.csv", false);
         request.send(null);
@@ -266,8 +275,21 @@
             result.push(obj);
         }
 
-        var value = result[0];
+        var score;
 
-        return 2000;
+        // 配列の中から、パラメータが一致するものを検索
+        for (var i = 0; i < result.length; i++) {
+            if (hojuRate == result[i].hojuRate && junme == result[i].junme && oponentIsParent == result[i].oponentIsParent && youAreParent == result[i].youAreParent && isRyokei == result[i].isRyokei && isDora == result[i].isDora) {
+
+                // 要求打点を取得
+                score = parseInt(result[i].score);
+
+                break;
+            }
+        }
+
+        // TODO 和了価値指標の計算
+
+        return score;
     }
 </script>
