@@ -4,46 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>麻雀の押し引き判定アプリ</title>
+    <title>押し引き判定（副露 vs リーチ）</title>
     <!-- Bootstrap CSSを読み込む -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        .bg-pressed {
+            background-color: #d4edda;
+        }
+
+        .bg-not-pressed {
+            background-color: #f8d7da;
+        }
+
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center mt-5 mb-4">麻雀の押し引き判定アプリ</h1>
+        <h1 class="text-center mt-5 mb-4">押し引き判定（副露 vs リーチ）</h1>
         <form id="form" class="bg-light rounded-3 p-4">
             <div class="mb-3">
-                <label for="isParent" class="form-label">自分が親かどうか</label>
-                <select id="isParent" name="isParent" class="form-select">
-                    <option value="1">はい</option>
-                    <option value="0">いいえ</option>
-                </select>
+                <label class="form-label">自分が親かどうか</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isParent" id="parentYes" value="1">
+                    <label class="form-check-label" for="parentYes">はい</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isParent" id="parentNo" value="0">
+                    <label class="form-check-label" for="parentNo">いいえ</label>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="round" class="form-label">現在何巡目か</label>
-                <select id="round" name="round" class="form-select">
-                    <option value="1">1巡目</option>
-                    <option value="2">2巡目</option>
-                    <option value="3">3巡目</option>
-                    <option value="4">4巡目</option>
-                    <option value="5">5巡目</option>
-                    <option value="6">6巡目</option>
-                    <option value="7">7巡目</option>
-                    <option value="8">8巡目</option>
-                    <option value="9">9巡目</option>
-                    <option value="10">10巡目</option>
-                    <option value="11">11巡目</option>
-                    <option value="12">12巡目</option>
-                    <option value="13">13巡目</option>
-                    <option value="14">14巡目</option>
-                    <option value="15">15巡目</option>
-                    <option value="16">16巡目</option>
-                    <option value="17">17巡目</option>
-                    <option value="18">18巡目</option>
-                    <option value="19">19巡目</option>
-                    <option value="20">20巡目</option>
-                </select>
+                <label class="form-label">現在何巡目か</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="round1" value="1">
+                    <label class="form-check-label" for="round1">1巡目</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="round2" value="2">
+                    <label class="form-check-label" for="round2">2巡目</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="round3" value="3">
+                    <label class="form-check-label" for="round3">3巡目</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="round4" value="4">
+                    <label class="form-check-label" for="round4">4巡目以降</label>
+                </div>
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">判定する</button>
@@ -54,34 +62,34 @@
     <!-- Bootstrap JavaScriptとjQueryを読み込む -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // JavaScriptで判定処理を実装する
-        const form = $('#form');
-        const result = $('#result');
-        form.on('submit', (event) => {
-            event.preventDefault();
-            const isParent = form.find('#isParent').val() === '1';
-            const round = parseInt(form.find('#round').val(), 10);
-            let message;
-            if (isParent) {
-                if (round <= 4) {
-                    message = 'リーチです！';
-                    result.removeClass('d-none').addClass('text-success').text(message);
-                } else {
-                    message = 'リーチできません。';
-                    result.removeClass('d-none').addClass('text-danger').text(message);
-                }
+  <script>
+    // JavaScriptで判定処理を実装する
+    const form = $('#form');
+    const result = $('#result');
+    form.on('submit', (event) => {
+        event.preventDefault();
+        const isParent = form.find('[name="isParent"]:checked').val() === '1';
+        const round = parseInt(form.find('[name="round"]:checked').val(), 10);
+        let message, resultClass;
+        if (isParent) {
+            if (round <= 4) {
+                message = '押し！';
+                resultClass = 'bg-pressed text-success';
             } else {
-                if (round <= 3) {
-                    message = 'リーチです！';
-                    result.removeClass('d-none').addClass('text-success').text(message);
-                } else {
-                    message = 'リーチできません。';
-                    result.removeClass('d-none').addClass('text-danger').text(message);
-                }
+                message = '降り！';
+                resultClass = 'bg-not-pressed text-danger';
             }
-        });
-    </script>
+        } else {
+            if (round <= 3) {
+                message = '押し！';
+                resultClass = 'bg-pressed text-success';
+            } else {
+                message = '降り！';
+                resultClass = 'bg-not-pressed text-danger';
+            }
+        }
+        result.removeClass('d-none').addClass(resultClass).text(message);
+    });
+</script>
 </body>
-
 </html>
