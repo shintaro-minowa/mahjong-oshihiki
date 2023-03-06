@@ -261,7 +261,7 @@
 
     function getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
         // 押し引き表を取得
-        const oc = this.getOshihikiChart();
+        const oc = this.getArrayFromCsv("oshihiki.csv");
 
         var score;
 
@@ -281,10 +281,10 @@
         return score;
     }
 
-    function getOshihikiChart() {
-        // 押し引き表をCSVファイルから配列に変換
+    function getArrayFromCsv(csvFileName) {
+        // CSVファイルを配列に変換
         var request = new XMLHttpRequest();
-        request.open("GET", "oshihiki.csv", false);
+        request.open("GET", csvFileName, false);
         request.send(null);
 
         var csvData = request.responseText;
