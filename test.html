@@ -24,33 +24,41 @@
         <h1 class="text-center mt-5 mb-4">押し引き判定（副露 vs リーチ）</h1>
         <form id="form" class="bg-light rounded-3 p-4">
             <div class="mb-3">
-                <label class="form-label">自分が親かどうか</label>
+                <label class="form-label">ルール</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isParent" id="parentYes" value="1">
-                    <label class="form-check-label" for="parentYes">はい</label>
+                    <input class="form-check-input" type="radio" name="rule" id="tenho" value="tenho">
+                    <label class="form-check-label" for="tenho">天鳳ルール</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isParent" id="parentNo" value="0">
-                    <label class="form-check-label" for="parentNo">いいえ</label>
+                    <input class="form-check-input" type="radio" name="rule" id="mleague" value="mleague">
+                    <label class="form-check-label" for="mleague">Mリーグルール</label>
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label">現在何巡目か</label>
+                <label class="form-label">場</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="round" id="round1" value="1">
-                    <label class="form-check-label" for="round1">1巡目</label>
+                    <input class="form-check-input" type="radio" name="round" id="east1" value="east1">
+                    <label class="form-check-label" for="east1">東1局</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="round" id="round2" value="2">
-                    <label class="form-check-label" for="round2">2巡目</label>
+                    <input class="form-check-input" type="radio" name="round" id="east2" value="east2">
+                    <label class="form-check-label" for="east2">東2局</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="round" id="round3" value="3">
-                    <label class="form-check-label" for="round3">3巡目</label>
+                    <input class="form-check-input" type="radio" name="round" id="east3" value="east3">
+                    <label class="form-check-label" for="east3">東3局</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="round" id="round4" value="4">
-                    <label class="form-check-label" for="round4">4巡目以降</label>
+                    <input class="form-check-input" type="radio" name="round" id="east4" value="east4">
+                    <label class="form-check-label" for="east4">東4局</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="south1" value="south1">
+                    <label class="form-check-label" for="south1">南1局</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="round" id="south2" value="south2">
+                    <label class="form-check-label" for="south2">南2局</label>
                 </div>
             </div>
             <div class="d-grid gap-2">
@@ -62,34 +70,35 @@
     <!-- Bootstrap JavaScriptとjQueryを読み込む -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // JavaScriptで判定処理を実装する
-    const form = $('#form');
-    const result = $('#result');
-    form.on('submit', (event) => {
-        event.preventDefault();
-        const isParent = form.find('[name="isParent"]:checked').val() === '1';
-        const round = parseInt(form.find('[name="round"]:checked').val(), 10);
-        let message, resultClass;
-        if (isParent) {
-            if (round <= 4) {
-                message = '押し！';
-                resultClass = 'bg-pressed text-success';
-            } else {
-                message = '降り！';
-                resultClass = 'bg-not-pressed text-danger';
+    <script>
+        // JavaScriptで判定処理を実装する
+        const form = $('#form');
+        const result = $('#result');
+        form.on('submit', (event) => {
+            event.preventDefault();
+            const rule = form.find('[name="rule"]:checked').val();
+            const round = form.find('[name="round"]:checked').val();
+            let message, resultClass;
+            if (rule === 'tenho') {
+                if (round === 'east1' || round === 'east2' || round === 'east3' || round === 'south1') {
+                    message = '押し！';
+                    resultClass = 'bg-pressed text-success';
+                } else {
+                    message = '降り！';
+                    resultClass = 'bg-not-pressed text-danger';
+                }
+            } else if (rule === 'mleague') {
+                if (round === 'east1' || round === 'east2' || round === 'east3') {
+                    message = '押し！';
+                    resultClass = 'bg-pressed text-success';
+                } else {
+                    message = '降り！';
+                    resultClass = 'bg-not-pressed text-danger';
+                }
             }
-        } else {
-            if (round <= 3) {
-                message = '押し！';
-                resultClass = 'bg-pressed text-success';
-            } else {
-                message = '降り！';
-                resultClass = 'bg-not-pressed text-danger';
-            }
-        }
-        result.removeClass('d-none').addClass(resultClass).text(message);
-    });
-</script>
+            result.removeClass('d-none').addClass(resultClass).text(message);
+        });
+    </script>
 </body>
+
 </html>
