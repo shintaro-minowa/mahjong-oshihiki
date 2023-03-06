@@ -117,12 +117,12 @@
             <div class="mb-3">
                 <label class="form-label">待ち</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="wait" id="wait-1" value="good" checked>
-                    <label class="form-check-label" for="wait-1">良形</label>
+                    <input class="form-check-input" type="radio" name="isRyokei" id="isRyokei-1" value="1" checked>
+                    <label class="form-check-label" for="isRyokei-1">良形</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="wait" id="wait-2" value="bad">
-                    <label class="form-check-label" for="wait-2">愚形</label>
+                    <input class="form-check-input" type="radio" name="isRyokei" id="isRyokei-2" value="0">
+                    <label class="form-check-label" for="isRyokei-2">愚形</label>
                 </div>
             </div>
             <div class="mb-3">
@@ -151,49 +151,49 @@
             <div class="mb-3">
                 <label class="form-label">順目</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="order" id="order-1" value="8" checked>
-                    <label class="form-check-label" for="order-1">8順目</label>
+                    <input class="form-check-input" type="radio" name="junme" id="junme-1" value="8" checked>
+                    <label class="form-check-label" for="junme-1">8順目</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="order" id="order-2" value="11">
-                    <label class="form-check-label" for="order-2">11順目</label>
+                    <input class="form-check-input" type="radio" name="junme" id="junme-2" value="11">
+                    <label class="form-check-label" for="junme-2">11順目</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="order" id="order-3" value="14">
-                    <label class="form-check-label" for="order-3">14順目</label>
+                    <input class="form-check-input" type="radio" name="junme" id="junme-3" value="14">
+                    <label class="form-check-label" for="junme-3">14順目</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">自分</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="player" id="player-1" value="ko" checked>
-                    <label class="form-check-label" for="player-1">子</label>
+                    <input class="form-check-input" type="radio" name="youAreParent" id="youAreParent-1" value="0" checked>
+                    <label class="form-check-label" for="youAreParent-1">子</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="player" id="player-2" value="oya">
-                    <label class="form-check-label" for="player-2">親</label>
+                    <input class="form-check-input" type="radio" name="youAreParent" id="youAreParent-2" value="1">
+                    <label class="form-check-label" for="youAreParent-2">親</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">相手</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="opponent" id="opponent-1" value="ko" checked>
-                    <label class="form-check-label" for="opponent-1">子</label>
+                    <input class="form-check-input" type="radio" name="oponentIsParent" id="oponentIsParent-1" value="0" checked>
+                    <label class="form-check-label" for="oponentIsParent-1">子</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="opponent" id="opponent-2" value="oya">
-                    <label class="form-check-label" for="opponent-2">親</label>
+                    <input class="form-check-input" type="radio" name="oponentIsParent" id="oponentIsParent-2" value="1">
+                    <label class="form-check-label" for="oponentIsParent-2">親</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">一発 or ドラ</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="yipatsu" id="yipatsu-1" value="yes">
-                    <label class="form-check-label" for="yipatsu-1">Yes</label>
+                    <input class="form-check-input" type="radio" name="isDora" id="isDora-1" value="1">
+                    <label class="form-check-label" for="isDora-1">Yes</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="yipatsu" id="yipatsu-2" value="no" checked>
-                    <label class="form-check-label" for="yipatsu-2">No</label>
+                    <input class="form-check-input" type="radio" name="isDora" id="isDora-2" value="0" checked>
+                    <label class="form-check-label" for="isDora-2">No</label>
                 </div>
             </div>
             <div class="mb-3">
@@ -216,10 +216,10 @@
         const score = document.querySelector('input[name="score"]:checked').value;
         const point = document.querySelector('input[name="point"]:checked').value;
         const hojuRate = document.querySelector('input[name="hojuRate"]:checked').value;
-        const order = document.querySelector('input[name="order"]:checked').value;
-        const player = document.querySelector('input[name="player"]:checked').value;
-        const opponent = document.querySelector('input[name="opponent"]:checked').value;
-        const yipatsu = document.querySelector('input[name="yipatsu"]:checked').value;
+        const junme = document.querySelector('input[name="junme"]:checked').value;
+        const youAreParent = document.querySelector('input[name="youAreParent"]:checked').value;
+        const oponentIsParent = document.querySelector('input[name="oponentIsParent"]:checked').value;
+        const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
         const result = document.querySelector('#result');
         if (rule === "tenhou") {
