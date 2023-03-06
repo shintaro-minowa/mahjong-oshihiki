@@ -1,137 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>麻雀の押し引き判定アプリ</title>
-    <style>
-        /* スタイルの定義 */
-        body {
-            font-family: sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        form {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 500px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        select {
-            margin-bottom: 20px;
-            font-size: 16px;
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ccc;
-            width: 100%;
-        }
-
-        button {
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        #result {
-            font-size: 24px;
-            text-align: center;
-            margin-top: 20px;
-            display: none;
-        }
-
-        #result.ok {
-            color: #4caf50;
-        }
-
-        #result.ng {
-            color: #f44336;
-        }
-
-    </style>
+    <!-- Bootstrap CSSを読み込む -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 
 <body>
-    <h1>麻雀の押し引き判定アプリ</h1>
-    <form id="form">
-        <label for="isParent">自分が親かどうか</label>
-        <select id="isParent" name="isParent">
-            <option value="1">はい</option>
-            <option value="0">いいえ</option>
-        </select>
-        <label for="round">現在何巡目か</label>
-        <select id="round" name="round">
-            <option value="1">1巡目</option>
-            <option value="2">2巡目</option>
-            <option value="3">3巡目</option>
-            <option value="4">4巡目</option>
-            <option value="5">5巡目</option>
-            <option value="6">6巡目</option>
-            <option value="7">7巡目</option>
-            <option value="8">8巡目</option>
-            <option value="9">9巡目</option>
-            <option value="10">10巡目</option>
-            <option value="11">11巡目</option>
-            <option value="12">12巡目</option>
-            <option value="13">13巡目</option>
-            <option value="14">14巡目</option>
-            <option value="15">15巡目</option>
-            <option value="16">16巡目</option>
-            <option value="17">17巡目</option>
-            <option value="18">18巡目</option>
-            <option value="19">19巡目</option>
-            <option value="20">20巡目</option>
-        </select>
-        <button type="submit">判定する</button>
-    </form>
-<div id="result"></div>
-<script>
-    // JavaScriptで判定処理を実装する
-    const form = document.getElementById('form');
-    const result = document.getElementById('result');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const isParent = form.elements['isParent'].value === '1';
-        const round = parseInt(form.elements['round'].value, 10);
-        let message;
-        if (isParent) {
-            if (round <= 4) {
-                message = 'リーチです！';
-                result.className = 'ok';
+    <div class="container">
+        <h1 class="text-center mt-5 mb-4">麻雀の押し引き判定アプリ</h1>
+        <form id="form" class="bg-light rounded-3 p-4">
+            <div class="mb-3">
+                <label for="isParent" class="form-label">自分が親かどうか</label>
+                <select id="isParent" name="isParent" class="form-select">
+                    <option value="1">はい</option>
+                    <option value="0">いいえ</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="round" class="form-label">現在何巡目か</label>
+                <select id="round" name="round" class="form-select">
+                    <option value="1">1巡目</option>
+                    <option value="2">2巡目</option>
+                    <option value="3">3巡目</option>
+                    <option value="4">4巡目</option>
+                    <option value="5">5巡目</option>
+                    <option value="6">6巡目</option>
+                    <option value="7">7巡目</option>
+                    <option value="8">8巡目</option>
+                    <option value="9">9巡目</option>
+                    <option value="10">10巡目</option>
+                    <option value="11">11巡目</option>
+                    <option value="12">12巡目</option>
+                    <option value="13">13巡目</option>
+                    <option value="14">14巡目</option>
+                    <option value="15">15巡目</option>
+                    <option value="16">16巡目</option>
+                    <option value="17">17巡目</option>
+                    <option value="18">18巡目</option>
+                    <option value="19">19巡目</option>
+                    <option value="20">20巡目</option>
+                </select>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">判定する</button>
+            </div>
+        </form>
+        <div id="result" class="mt-3 d-none"></div>
+    </div>
+    <!-- Bootstrap JavaScriptとjQueryを読み込む -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScriptで判定処理を実装する
+        const form = $('#form');
+        const result = $('#result');
+        form.on('submit', (event) => {
+            event.preventDefault();
+            const isParent = form.find('#isParent').val() === '1';
+            const round = parseInt(form.find('#round').val(), 10);
+            let message;
+            if (isParent) {
+                if (round <= 4) {
+                    message = 'リーチです！';
+                    result.removeClass('d-none').addClass('text-success').text(message);
+                } else {
+                    message = 'リーチできません。';
+                    result.removeClass('d-none').addClass('text-danger').text(message);
+                }
             } else {
-                message = 'リーチできません。';
-                result.className = 'ng';
+                if (round <= 3) {
+                    message = 'リーチです！';
+                    result.removeClass('d-none').addClass('text-success').text(message);
+                } else {
+                    message = 'リーチできません。';
+                    result.removeClass('d-none').addClass('text-danger').text(message);
+                }
             }
-        } else {
-            if (round <= 3) {
-                message = 'リーチです！';
-                result.className = 'ok';
-            } else {
-                message = 'リーチできません。';
-                result.className = 'ng';
-            }
-        }
-        result.textContent = message;
-        result.style.display = 'block';
-    });
-</script>
+        });
+    </script>
+</body>
+
+</html>
