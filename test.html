@@ -226,19 +226,6 @@
             result.textContent = "天鳳ルールは未対応です";
             result.style.backgroundColor = "#FFFFFF";
         } else {
-            const threshold = parseInt(score) + parseInt(point);
-            const drawRate = parseFloat(furo) / 100.0;
-            const pFuro = (threshold - 300) * 0.01 * drawRate;
-            const pRon = (threshold - 300) * 0.01 * (1 - drawRate);
-            const winPoint = parseInt(point) * (player === "oya" ? 6 : 4);
-            const losePoint = parseInt(point) * (opponent === "oya" ? 6 : 4);
-            const eWin = winPoint * (1 - pFuro) + (winPoint + 1000) * pFuro;
-            const eLose = losePoint * (1 - pRon) + (losePoint + 1000) * pRon;
-            const delta = eWin - eLose;
-            const thresholdDelta = delta / 100.0;
-            const probability = order === "8" ? 0.25 : order === "11" ? 0.33 : 0.5;
-            const expectedValue = probability * thresholdDelta + (1 - probability) * (-300 / 3.0);
-
             const your_score = this.getYourScore(score);
             const required_score = this.getRequiredScore(score);
 
