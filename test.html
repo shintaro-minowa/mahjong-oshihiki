@@ -257,7 +257,29 @@
     }
 
     function getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
-        // oshihiki.csv を配列に変換
+        // 押し引き表を取得
+        const oc = this.getOshihikiChart();
+
+        var score;
+
+        // 配列の中から、パラメータが一致するものを検索
+        for (var i = 0; i < oc.length; i++) {
+            if (hojuRate == oc[i].hojuRate && junme == oc[i].junme && oponentIsParent == oc[i].oponentIsParent && youAreParent == oc[i].youAreParent && isRyokei == oc[i].isRyokei && isDora == oc[i].isDora) {
+
+                // 要求打点を取得
+                score = parseInt(oc[i].score);
+
+                break;
+            }
+        }
+
+        // TODO 和了価値指標の計算
+
+        return score;
+    }
+
+    function getOshihikiChart() {
+        // 押し引き表をCSVファイルから配列に変換
         var request = new XMLHttpRequest();
         request.open("GET", "oshihiki.csv", false);
         request.send(null);
@@ -275,21 +297,6 @@
             result.push(obj);
         }
 
-        var score;
-
-        // 配列の中から、パラメータが一致するものを検索
-        for (var i = 0; i < result.length; i++) {
-            if (hojuRate == result[i].hojuRate && junme == result[i].junme && oponentIsParent == result[i].oponentIsParent && youAreParent == result[i].youAreParent && isRyokei == result[i].isRyokei && isDora == result[i].isDora) {
-
-                // 要求打点を取得
-                score = parseInt(result[i].score);
-
-                break;
-            }
-        }
-
-        // TODO 和了価値指標の計算
-
-        return score;
+        return result;
     }
 </script>
