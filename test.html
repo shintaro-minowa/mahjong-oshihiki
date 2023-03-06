@@ -26,18 +26,18 @@
             <div class="mb-3">
                 <label class="form-label">ルール</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="rule" id="tenho" value="tenho">
-                    <label class="form-check-label" for="tenho">天鳳ルール</label>
+                    <input class="form-check-input" type="radio" name="rule" id="tenho" value="tenho" checked>
+                    <label class="form-check-label" for="tenho">天鳳ルール（段位戦 七段）</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="rule" id="mleague" value="mleague">
-                    <label class="form-check-label" for="mleague">Mリーグルール</label>
+                    <label class="form-check-label" for="mleague">Mリーグルール（25,000点持ち 30,000点返し ウマ1-3）</label>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">場</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="round" id="east1" value="east1">
+                    <input class="form-check-input" type="radio" name="round" id="east1" value="east1" checked>
                     <label class="form-check-label" for="east1">東1局</label>
                 </div>
                 <div class="form-check">
@@ -61,44 +61,190 @@
                     <label class="form-check-label" for="south2">南2局</label>
                 </div>
             </div>
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">判定する</button>
+            <div class="mb-3">
+                <label class="form-label">持ち点</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="point" id="point-1" value="15000" checked>
+                    <label class="form-check-label" for="point-1">14,000点 ~ 16,000点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="point" id="point-2" value="25000">
+                    <label class="form-check-label" for="point-2">24,000点 ~ 26,000点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="point" id="point-3" value="35000">
+                    <label class="form-check-label" for="point-3">34,000点 ~ 36,000点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="point" id="point-4" value="45000">
+                    <label class="form-check-label" for="point-4">44,000点 ~ 46,000点</label>
+                </div>
             </div>
-        </form>
-        <div id="result" class="mt-3 d-none"></div>
+            <div class="mb-3">
+                <label class="form-label">打点</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="score" id="score-1" value="1000" checked>
+                    <label class="form-check-label" for="score-1">子 1000点 親 1500点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="score" id="score-2" value="2000">
+                    <label class="form-check-label" for="score-2">子 2000点 親 2900点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="score" id="score-3" value="3900">
+                    <label class="form-check-label" for="score-3">子 3900点 親 5800点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="score" id="score-4" value="7700">
+                    <label class="form-check-label" for="score-4">子 7700点 親 11600点</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">供託</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="deposit" id="deposit-1" value="1000" checked>
+                    <label class="form-check-label" for="deposit-1">1000点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="deposit" id="deposit-2" value="2000">
+                    <label class="class=" form-check-label" for="deposit-2">2000点</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="deposit" id="deposit-3" value="3000">
+                    <label class="form-check-label" for="deposit-3">3000点</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">待ち</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="wait" id="wait-1" value="good" checked>
+                    <label class="form-check-label" for="wait-1">良形</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="wait" id="wait-2" value="bad">
+                    <label class="form-check-label" for="wait-2">愚形</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">放銃率</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="furo" id="furo-1" value="5" checked>
+                    <label class="form-check-label" for="furo-1">5%（スジ9本 外側28）</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="furo" id="furo-2" value="10">
+                    <label class="form-check-label" for="furo-2">10%（スジ9本 無スジ28）</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="furo" id="furo-3" value="15">
+                    <label class="form-check-label" for="furo-3">15%（スジ12本 無スジ28）</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="furo" id="furo-4" value="20">
+                    <label class="form-check-label" for="furo-4">20%（スジ14本 無スジ28）</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="furo" id="furo-5" value="25">
+                    <label class="form-check-label" for="furo-5">25%（スジ16本 無スジ28）</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">順目</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="order" id="order-1" value="8" checked>
+                    <label class="form-check-label" for="order-1">8順目</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="order" id="order-2" value="11">
+                    <label class="form-check-label" for="order-2">11順目</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="order" id="order-3" value="14">
+                    <label class="form-check-label" for="order-3">14順目</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">自分</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="player" id="player-1" value="ko" checked>
+                    <label class="form-check-label" for="player-1">子</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="player" id="player-2" value="oya">
+                    <label class="form-check-label" for="player-2">親</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">相手</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="opponent" id="opponent-1" value="ko" checked>
+                    <label class="form-check-label" for="opponent-1">子</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="opponent" id="opponent-2" value="oya">
+                    <label class="form-check-label" for="opponent-2">親</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">一発 or ドラ</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yipatsu" id="yipatsu-1" value="yes">
+                    <label class="form-check-label" for="yipatsu-1">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yipatsu" id="yipatsu-2" value="no" checked>
+                    <label class="form-check-label" for="yipatsu-2">No</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary" onclick="check()">判定</button>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">判定結果</label>
+                <div id="result" class="p-3"></div>
+            </div>
     </div>
-    <!-- Bootstrap JavaScriptとjQueryを読み込む -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // JavaScriptで判定処理を実装する
-        const form = $('#form');
-        const result = $('#result');
-        form.on('submit', (event) => {
-            event.preventDefault();
-            const rule = form.find('[name="rule"]:checked').val();
-            const round = form.find('[name="round"]:checked').val();
-            let message, resultClass;
-            if (rule === 'tenho') {
-                if (round === 'east1' || round === 'east2' || round === 'east3' || round === 'south1') {
-                    message = '押し！';
-                    resultClass = 'bg-pressed text-success';
-                } else {
-                    message = '降り！';
-                    resultClass = 'bg-not-pressed text-danger';
-                }
-            } else if (rule === 'mleague') {
-                if (round === 'east1' || round === 'east2' || round === 'east3') {
-                    message = '押し！';
-                    resultClass = 'bg-pressed text-success';
-                } else {
-                    message = '降り！';
-                    resultClass = 'bg-not-pressed text-danger';
-                }
-            }
-            result.removeClass('d-none').addClass(resultClass).text(message);
-        });
-    </script>
+    </div>
 </body>
 
 </html>
+
+<script>
+    function check() {
+        const rule = document.querySelector('input[name="rule"]:checked').value;
+        const round = document.querySelector('input[name="round"]:checked').value;
+        const score = document.querySelector('input[name="score"]:checked').value;
+        const point = document.querySelector('input[name="point"]:checked').value;
+        const furo = document.querySelector('input[name="furo"]:checked').value;
+        const order = document.querySelector('input[name="order"]:checked').value;
+        const player = document.querySelector('input[name="player"]:checked').value;
+        const opponent = document.querySelector('input[name="opponent"]:checked').value;
+        const yipatsu = document.querySelector('input[name="yipatsu"]:checked').value;
+
+        const result = document.querySelector('#result');
+        if (rule === "tenhou") {
+            result.textContent = "天鳳ルールは未対応です";
+            result.style.backgroundColor = "#FFFFFF";
+        } else {
+            const threshold = parseInt(score) + parseInt(point);
+            const drawRate = parseFloat(furo) / 100.0;
+            const pFuro = (threshold - 300) * 0.01 * drawRate;
+            const pRon = (threshold - 300) * 0.01 * (1 - drawRate);
+            const winPoint = parseInt(point) * (player === "oya" ? 6 : 4);
+            const losePoint = parseInt(point) * (opponent === "oya" ? 6 : 4);
+            const eWin = winPoint * (1 - pFuro) + (winPoint + 1000) * pFuro;
+            const eLose = losePoint * (1 - pRon) + (losePoint + 1000) * pRon;
+            const delta = eWin - eLose;
+            const thresholdDelta = delta / 100.0;
+            const probability = order === "8" ? 0.25 : order === "11" ? 0.33 : 0.5;
+            const expectedValue = probability * thresholdDelta + (1 - probability) * (-300 / 3.0);
+            if (expectedValue > 0) {
+                result.textContent = "押し！";
+                result.style.backgroundColor = "#DFF0D8";
+            } else {
+                result.textContent = "降り！";
+                result.style.backgroundColor = "#F2DEDE";
+            }
+        }
+    }
+</script>
