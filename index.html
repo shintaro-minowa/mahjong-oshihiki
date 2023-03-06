@@ -68,7 +68,8 @@
                     <label class="form-check-label" for="yourPoint-1">14,000点 ~ 16,000点</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-2" value="25000" checked>
+                    <input class="form-check-input" type="radio" name="yourPoint" id="yourPoint-2" value="25000"
+                        checked>
                     <label class="form-check-label" for="yourPoint-2">24,000点 ~ 26,000点</label>
                 </div>
                 <div class="form-check">
@@ -200,7 +201,7 @@
                 </div>
             </div>
             <div class="mb-3 text-center">
-                <button type="button" class="btn btn-primary w-100" onclick="check()">判定</button>
+                <button type="button" class="btn btn-primary w-100" onclick="judge()">判定</button>
             </div>
             <div class="mb-3 text-center">
                 <div id="result" class="p-3" style="text-align: center;"></div>
@@ -212,7 +213,12 @@
 </html>
 
 <script>
-    function check() {
+    function judge() {
+        // 判定結果を非表示
+        const result = document.querySelector('#result');
+        result.style.display = "none";
+
+        // 入力された値を取得
         const rule = document.querySelector('input[name="rule"]:checked').value;
         const ba = document.querySelector('input[name="ba"]:checked').value;
         const han = document.querySelector('input[name="han"]:checked').value;
@@ -225,38 +231,18 @@
         const oponentIsParent = document.querySelector('input[name="oponentIsParent"]:checked').value;
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
-        const result = document.querySelector('#result');
-
+        // あなたの打点を取得
         const yourScore = this.getYourScore(rule, han, kyotaku, youAreParent);
+        // 要求打点を取得
         const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
 
-        console.log("----------- 判定 ----------- ");
-        console.log("あなたの打点 = " + yourScore);
-        console.log("要求打点 = " + requiredScore);
+        // 0.5秒待機してから、結果を表示
+        setTimeout(function () {
 
-        if (yourScore === undefined || requiredScore === undefined) {
-            result.textContent = "判定できません";
-            result.style.color = "#fff";
-            result.style.backgroundColor = "#880000";
-            console.log("判定できません");
+            this.result(yourScore, requiredScore);
 
-            return;
-        }
-
-        // TODO requiredScoreがundefinedの場合（例えば自分も相手も親を選択された場合）の処理を追加する
-
-        if (yourScore > requiredScore) {
-            result.textContent = "押し！";
-            result.style.color = "#fff";
-            result.style.backgroundColor = "#2cb696";
-            console.log("押し！");
-        } else {
-            result.textContent = "降り！";
-            result.style.color = "#fff";
-            result.style.backgroundColor = "#C94055";
-            console.log("降り！");
-        }
-
+            result.style.display = "block";
+        }, 500);
     }
 
     function getYourScore(rule, han, kyotaku, youAreParent) {
@@ -379,5 +365,34 @@
         }
 
         return result;
+    }
+
+    function result(yourScore, requiredScore) {
+        console.log("----------- 判定 ----------- ");
+        console.log("あなたの打点 = " + yourScore);
+        console.log("要求打点 = " + requiredScore);
+
+        const result = document.querySelector('#result');
+
+        if (yourScore === undefined || requiredScore === undefined) {
+            result.textContent = "判定できません";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#880000";
+            console.log("判定できません");
+
+            return;
+        }
+
+        if (yourScore > requiredScore) {
+            result.textContent = "押し！";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#2cb696";
+            console.log("押し！");
+        } else {
+            result.textContent = "降り！";
+            result.style.color = "#fff";
+            result.style.backgroundColor = "#C94055";
+            console.log("降り！");
+        }
     }
 </script>
