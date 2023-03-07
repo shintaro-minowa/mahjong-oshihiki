@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <a onclick="toggleDetails()" style="color: gray;" href="#detailsSettingsLink" id="detailsSettingsLink">詳細設定</a><br><br>
+            <a onclick="toggleDetails()" style="color: gray;" id="detailsSettingsLink">詳細設定</a><br><br>
             <div id="detailsSettings" class="bg-light" style="display:none;">
 
                 <div class="mb-3">
@@ -569,8 +569,26 @@
 
         if (detailsSettings.style.display === "none") {
             detailsSettings.style.display = "block";
+            this.scrollToSection("detailsSettingsLink");
         } else {
             detailsSettings.style.display = "none";
+            this.scrollToTop();
         }
+    }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+    }
+
+    function scrollToSection(sectionName) {
+        const section = document.getElementById(sectionName); // スクロール先の要素を取得
+        const sectionPosition = section.offsetTop; // スクロール先の要素の位置を取得
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: "auto"
+        });
     }
 </script>
