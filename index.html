@@ -254,6 +254,8 @@
         // 入力された値を取得
         const rule = document.querySelector('input[name="rule"]:checked').value;
         const ba = document.querySelector('input[name="ba"]:checked').value;
+        // このアプリでは30符固定
+        const fu = 30;
         const han = document.querySelector('input[name="han"]:checked').value;
         const kyotaku = document.querySelector('input[name="kyotaku"]:checked').value;
         const yourPoint = document.querySelector('input[name="yourPoint"]:checked').value;
@@ -265,7 +267,7 @@
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
         // あなたの打点を取得
-        const yourScore = this.getYourScore(rule, han, kyotaku, youAreParent);
+        const yourScore = this.getYourScore(rule, fu, han, kyotaku, youAreParent);
         // 要求打点を取得
         const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
 
@@ -278,12 +280,9 @@
         }, 500);
     }
 
-    function getYourScore(rule, han, kyotaku, youAreParent) {
+    function getYourScore(rule, fu, han, kyotaku, youAreParent) {
         console.log("----------- あなたの打点を取得 ----------- ");
         var yourScore;
-
-        // このアプリでは30符固定
-        const fu = 30;
 
         console.log("ルール = " + rule);
         console.log("符 = " + fu);
