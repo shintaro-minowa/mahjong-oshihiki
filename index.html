@@ -232,7 +232,8 @@
                 <button type="button" class="btn btn-primary w-100" onclick="judge()">判定</button>
             </div>
             <div class="mb-3 text-center">
-                <div id="result" class="p-3" style="text-align: center;"></div>
+                <div id="resultArea" class="p-3" style="text-align: center; display: none;"></div>
+                <div id="detailsArea" class="p-3" style="text-align: left; display: none;"></div>
             </div>
         </form>
     </div>
@@ -263,8 +264,10 @@
 <script>
     function judge() {
         // 判定結果を非表示
-        const result = document.querySelector('#result');
-        result.style.display = "none";
+        const resultArea = document.querySelector('#resultArea');
+        const detailsArea = document.querySelector('#detailsArea');
+        resultArea.style.display = "none";
+        detailsArea.style.display = "none";
 
         // 入力された値を取得
         const rule = document.querySelector('input[name="rule"]:checked').value;
@@ -286,32 +289,31 @@
         const totalYourScore = this.getTotalYourScore(yourScore, kyotaku);
 
         // 要求打点を取得
-        const requiredScore = this.getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
+        const requiredScore = this.getRequiredScore(hojuRate, junme, youAreParent, oponentIsParent, isRyokei, isDora);
         // 和了価値を取得
         const horaValue = this.getHoraValue(rule, ba, yourPoint);
         // 和了価値による調整をした要求打点を取得
         const adjustedRequiredScore = this.getAdjustedScore(requiredScore, horaValue);
 
-        // 結果の詳細のテキストを作成
-        const details = this.createDetails(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore);
-
-        // 0.5秒待機してから、結果を表示
+        // 0.5秒待機してから、結果と詳細を表示
         setTimeout(function () {
+            this.showResult(totalYourScore, adjustedRequiredScore);
+            resultArea.style.display = "block";
 
-            this.result(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore);
-
-            result.style.display = "block";
+            if (this.showDetails(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore)) {
+                detailsArea.style.display = "block";
+            }
         }, 500);
     }
 
     function getYourScore(rule, fu, han, youAreParent) {
         console.log("----------- 自分の打点を取得 ----------- ");
-        var yourScore;
-
         console.log("ルール = " + rule);
         console.log("符 = " + fu);
         console.log("翻 = " + han);
         console.log("自分が親であるか = " + youAreParent);
+
+        var yourScore;
 
         const ms = this.getArrayFromCsv("mahjong_score.csv");
 
@@ -336,10 +338,10 @@
 
     function getTotalYourScore(yourScore, kyotaku) {
         console.log("----------- 供託を含む自分の打点を取得 ----------- ");
-        var totalYourScore;
-
         console.log("自分の打点 = " + yourScore);
         console.log("供託 = " + kyotaku);
+
+        var totalYourScore;
 
         totalYourScore = parseInt(yourScore) + parseInt(kyotaku);
 
@@ -348,23 +350,23 @@
         return totalYourScore;
     }
 
-    function getRequiredScore(hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
+    function getRequiredScore(hojuRate, junme, youAreParent, oponentIsParent, isRyokei, isDora) {
         console.log("----------- 要求打点を取得 ----------- ");
-        var requiredScore;
-
         console.log("放銃率 = " + hojuRate);
         console.log("順目 = " + junme);
-        console.log("相手が親であるか = " + oponentIsParent);
         console.log("自分が親であるか = " + youAreParent);
+        console.log("相手が親であるか = " + oponentIsParent);
         console.log("良形であるか = " + isRyokei);
         console.log("一発 or ドラであるか = " + isDora);
+
+        var requiredScore;
 
         // 押し引き表を取得
         const oc = this.getArrayFromCsv("oshihiki.csv");
 
         // 配列の中から、パラメータが一致するものを検索
         for (var i = 0; i < oc.length; i++) {
-            if (hojuRate == oc[i].hojuRate && junme == oc[i].junme && oponentIsParent == oc[i].oponentIsParent && youAreParent == oc[i].youAreParent && isRyokei == oc[i].isRyokei && isDora == oc[i].isDora) {
+            if (hojuRate == oc[i].hojuRate && junme == oc[i].junme && youAreParent == oc[i].youAreParent && oponentIsParent == oc[i].oponentIsParent && isRyokei == oc[i].isRyokei && isDora == oc[i].isDora) {
 
                 // 要求打点を取得
                 requiredScore = parseInt(oc[i].score);
@@ -383,6 +385,10 @@
 
     function getHoraValue(rule, ba, yourPoint) {
         console.log("----------- 和了価値を取得 ----------- ");
+        console.log("ルール = " + rule);
+        console.log("場 = " + ba);
+        console.log("持ち点 = " + yourPoint);
+
         var horaValue;
 
         // 和了価値指標を取得
@@ -400,25 +406,29 @@
         }
         console.log("和了価値 = " + horaValue);
 
+        if (horaValue === undefined) return undefined;
+
         return horaValue;
     }
 
     function getAdjustedScore(score, horaValue) {
-        console.log("----------- 和了価値で調整した打点を取得 ----------- ");
+        if (score === undefined || horaValue === undefined) return undefined;
+
+        console.log("----------- 和了価値で調整した要求打点を取得 ----------- ");
         var adjustedScore;
 
-        console.log("和了価値による調整前の打点 = " + score);
+        console.log("和了価値による調整前の要求打点 = " + score);
 
         // 打点を和了価値で調整
         //   例えば、天鳳ルール、南2局、持ち点が15000点だと、和了の価値は通常の1.57倍になる。
         //   和了の価値が高くなるとき、要求打点は下がるので、要求打点を和了価値で割って調整する。
         adjustedScore = score / horaValue;
-        console.log("和了価値による調整後の打点 = " + adjustedScore);
+        console.log("和了価値による調整後の要求打点 = " + adjustedScore);
 
         // 100の位で切り捨て
         //   例）16340.129 -> 16300
         adjustedScore = Math.floor(adjustedScore / 100) * 100;
-        console.log("和了価値による調整後の打点（100の位で切り捨て） = " + adjustedScore);
+        console.log("和了価値による調整後の要求打点（100の位で切り捨て） = " + adjustedScore);
 
         return adjustedScore;
     }
@@ -445,22 +455,22 @@
         return result;
     }
 
-    function result(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore) {
+    function showResult(totalYourScore, adjustedRequiredScore) {
         console.log("----------- 判定 ----------- ");
         console.log("自分の打点 = " + totalYourScore);
-        console.log("要求打点 = " + requiredScore);
+        console.log("要求打点 = " + adjustedRequiredScore);
 
-        const result = document.querySelector('#result');
+        const resultArea = document.querySelector('#resultArea');
 
-        result.style.color = "#fff";
-        result.style.fontSize = "1.5rem";
+        resultArea.style.color = "#fff";
+        resultArea.style.fontSize = "1.5rem";
 
-        if (totalYourScore === undefined || requiredScore === undefined) {
-            result.textContent = "判定できません";
-            result.style.backgroundColor = "#880000";
+        if (totalYourScore === undefined || adjustedRequiredScore === undefined) {
+            resultArea.textContent = "判定できません";
+            resultArea.style.backgroundColor = "#880000";
             console.log("判定できません");
 
-            return;
+            return false;
         }
 
         // 判定結果の詳細を追加
@@ -469,30 +479,80 @@
         note.style.marginTop = "10px";
         note.style.textAlign = "center";
 
-        if (totalYourScore >= requiredScore) {
+        if (totalYourScore >= adjustedRequiredScore) {
             console.log("押し！");
-            result.textContent = "押し！";
-            result.style.backgroundColor = "#2cb696";
+            resultArea.textContent = "押し！";
+            resultArea.style.backgroundColor = "#2cb696";
 
-            note.textContent = "自分の打点(" + totalYourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
-            result.appendChild(note);
+            note.textContent = "自分の打点(" + totalYourScore.toLocaleString() + "点) ≧ 要求打点(" + adjustedRequiredScore.toLocaleString() + "点)";
+            resultArea.appendChild(note);
 
         } else {
             console.log("降り！");
-            result.textContent = "降り！";
-            result.style.backgroundColor = "#C94055";
+            resultArea.textContent = "降り！";
+            resultArea.style.backgroundColor = "#C94055";
 
-            note.textContent = "自分の打点(" + totalYourScore + "点) < 要求打点(" + requiredScore + "点)";
-            result.appendChild(note);
+            note.textContent = "自分の打点(" + totalYourScore.toLocaleString() + "点) < 要求打点(" + adjustedRequiredScore.toLocaleString() + "点)";
+            resultArea.appendChild(note);
         }
+
+        return true;
     }
 
-    function createDetails(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore) {
-        details = "";
+    function showDetails(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore) {
 
-        // ダミーデータ
-        details = "自分の打点(9999点) ≧ 要求打点(8888点)\\ntest";
+        if (rule === undefined || ba === undefined || fu === undefined || han === undefined || kyotaku === undefined || yourPoint === undefined || isRyokei === undefined || hojuRate === undefined || junme === undefined || youAreParent === undefined || oponentIsParent === undefined || isDora === undefined || yourScore === undefined || totalYourScore === undefined || requiredScore === undefined || horaValue === undefined || adjustedRequiredScore === undefined) {
+            return false;
+        }
 
-        return details;
+        let details = `
+            自分の打点（供託含む）: ${totalYourScore.toLocaleString()}点<br>
+            　= 自分の打点(${yourScore.toLocaleString()}点) + 供託(${parseInt(kyotaku).toLocaleString()}点) <br>
+            <br>
+            要求打点（和了価値で調整後）: ${adjustedRequiredScore.toLocaleString()}点<br>
+            　≒ 要求打点(${requiredScore.toLocaleString()}点) ÷ 和了価値(${horaValue}) <br>
+            <br>
+            ----- 要求打点 -----<br>
+            放銃率: ${hojuRate}%<br>
+            順目: ${junme}順目<br>
+            自分: ${youAreParent == 1 ? "親" : "子"}<br>
+            相手: ${oponentIsParent == 1 ? "親" : "子"}<br>
+            待ち: ${isRyokei == 1 ? "良形" : "愚形"}<br>
+            一発 or ドラ: ${isDora == 1 ? "Yes" : "No"}<br>
+            ↓<br>
+            要求打点 = ${requiredScore.toLocaleString()}点<br>
+            <br>
+            ----- 和了価値 -----<br>
+            ルール: ${rule == 1 ? "Mリーグルール" : "天鳳ルール"}<br>
+            場 = ${this.getBaLabel(ba)}<br>
+            持ち点 = ${parseInt(yourPoint).toLocaleString()}<br>
+            ↓<br>
+            和了価値 = ${horaValue}<br>
+            <br>
+        `;
+
+        const detailsArea = document.querySelector('#detailsArea');
+
+        detailsArea.style.backgroundColor = "#F5F8FA";
+        detailsArea.style.fontSize = "0.7rem";
+        detailsArea.style.padding = "10px";
+        detailsArea.style.marginTop = "10px";
+        detailsArea.style.textAlign = "left";
+        detailsArea.innerHTML = details;
+
+        return true;
+    }
+
+    function getBaLabel(key) {
+        const baLabels = {
+            1: '東1局',
+            2: '東2局',
+            3: '東3局',
+            4: '東4局',
+            5: '南1局',
+            6: '南2局',
+        };
+
+        return baLabels[key];
     }
 </script>
