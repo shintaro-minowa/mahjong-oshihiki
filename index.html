@@ -45,28 +45,19 @@
     <div class="container">
         <form id="form" class="bg-white rounded-3 p-4">
             <div class="mb-3">
-                <label class="form-label">自分</label>
+                <label class="form-label">自分 vs 相手</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="youAreParent" id="youAreParent-1" value="0"
+                    <input class="form-check-input" type="radio" name="oyako" id="oyako-1" value="1"
                         checked>
-                    <label class="form-check-label" for="youAreParent-1">子</label>
+                    <label class="form-check-label" for="oyako-1">子 vs 子</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="youAreParent" id="youAreParent-2" value="1">
-                    <label class="form-check-label" for="youAreParent-2">親</label>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">相手</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="oponentIsParent" id="oponentIsParent-1" value="0"
-                        checked>
-                    <label class="form-check-label" for="oponentIsParent-1">子</label>
+                    <input class="form-check-input" type="radio" name="oyako" id="oyako-2" value="2">
+                    <label class="form-check-label" for="oyako-2">親 vs 子</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="oponentIsParent" id="oponentIsParent-2"
-                        value="1">
-                    <label class="form-check-label" for="oponentIsParent-2">親</label>
+                    <input class="form-check-input" type="radio" name="oyako" id="oyako-3" value="3">
+                    <label class="form-check-label" for="oyako-3">子 vs 親</label>
                 </div>
             </div>
             <div class="mb-3">
@@ -275,6 +266,7 @@
         detailsArea.style.display = "none";
 
         // 入力された値を取得
+        const oyako = document.querySelector('input[name="oyako"]:checked').value;
         const rule = document.querySelector('input[name="rule"]:checked').value;
         const ba = document.querySelector('input[name="ba"]:checked').value;
         const fu = 30; // このアプリでは30符固定
@@ -284,9 +276,11 @@
         const isRyokei = document.querySelector('input[name="isRyokei"]:checked').value;
         const hojuRate = document.querySelector('input[name="hojuRate"]:checked').value;
         const junme = document.querySelector('input[name="junme"]:checked').value;
-        const youAreParent = document.querySelector('input[name="youAreParent"]:checked').value;
-        const oponentIsParent = document.querySelector('input[name="oponentIsParent"]:checked').value;
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
+
+        // 親子の情報を取得
+        const youAreParent = this.areYouParent(oyako);
+        const oponentIsParent = this.isOpponentParent(oyako);
 
         // 自分の打点を取得
         const yourScore = this.getYourScore(rule, fu, han, youAreParent);
@@ -309,6 +303,13 @@
                 detailsArea.style.display = "block";
             }
         }, 500);
+    }
+
+    function areYouParent(oyako) {
+        return oyako == 2;
+    }
+    function isOpponentParent(oyako) {
+        return oyako == 3;
     }
 
     function getYourScore(rule, fu, han, youAreParent) {
