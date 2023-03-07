@@ -267,7 +267,7 @@
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
         // 自分の打点を取得
-        const yourScore = this.getYourScore(rule, fu, han, kyotaku, youAreParent);
+        const totalScore = this.getYourScore(rule, fu, han, kyotaku, youAreParent);
         // 要求打点を取得
         const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
 
@@ -277,7 +277,7 @@
         // 0.5秒待機してから、結果を表示
         setTimeout(function () {
 
-            this.result(yourScore, requiredScore, details);
+            this.result(totalScore, requiredScore, details);
 
             result.style.display = "block";
         }, 500);
@@ -285,7 +285,7 @@
 
     function getYourScore(rule, fu, han, kyotaku, youAreParent) {
         console.log("----------- 自分の打点を取得 ----------- ");
-        var yourScore;
+        var totalScore;
 
         console.log("ルール = " + rule);
         console.log("符 = " + fu);
@@ -299,24 +299,24 @@
             if (rule == ms[i].rule && fu == ms[i].fu && han == ms[i].han && youAreParent == ms[i].youAreParent) {
 
                 // 打点を取得
-                yourScore = parseInt(ms[i].score);
+                totalScore = parseInt(ms[i].score);
 
                 break;
             }
         }
 
-        if (yourScore === undefined) {
+        if (totalScore === undefined) {
             return undefined;
         }
 
-        console.log("自分の打点 = " + yourScore);
+        console.log("自分の打点 = " + totalScore);
         console.log("供託 = " + kyotaku);
 
-        yourScore += parseInt(kyotaku);
+        totalScore += parseInt(kyotaku);
 
-        console.log("供託追加後の自分の打点 = " + yourScore);
+        console.log("供託追加後の自分の打点 = " + totalScore);
 
-        return yourScore;
+        return totalScore;
     }
 
     function getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora) {
@@ -402,9 +402,9 @@
         return result;
     }
 
-    function result(yourScore, requiredScore, details) {
+    function result(totalScore, requiredScore, details) {
         console.log("----------- 判定 ----------- ");
-        console.log("自分の打点 = " + yourScore);
+        console.log("自分の打点 = " + totalScore);
         console.log("要求打点 = " + requiredScore);
 
         const result = document.querySelector('#result');
@@ -412,7 +412,7 @@
         result.style.color = "#fff";
         result.style.fontSize = "1.5rem";
 
-        if (yourScore === undefined || requiredScore === undefined) {
+        if (totalScore === undefined || requiredScore === undefined) {
             result.textContent = "判定できません";
             result.style.backgroundColor = "#880000";
             console.log("判定できません");
@@ -426,12 +426,12 @@
         note.style.marginTop = "10px";
         note.style.textAlign = "center";
 
-        if (yourScore >= requiredScore) {
+        if (totalScore >= requiredScore) {
             console.log("押し！");
             result.textContent = "押し！";
             result.style.backgroundColor = "#2cb696";
 
-            note.textContent = "自分の打点(" + yourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + totalScore + "点) ≧ 要求打点(" + requiredScore + "点)";
             // note.textContent = details;
             result.appendChild(note);
 
@@ -440,7 +440,7 @@
             result.textContent = "降り！";
             result.style.backgroundColor = "#C94055";
 
-            note.textContent = "自分の打点(" + yourScore + "点) < 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + totalScore + "点) < 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
         }
     }
