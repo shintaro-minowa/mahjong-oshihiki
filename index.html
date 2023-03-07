@@ -266,7 +266,7 @@
         const oponentIsParent = document.querySelector('input[name="oponentIsParent"]:checked').value;
         const isDora = document.querySelector('input[name="isDora"]:checked').value;
 
-        // あなたの打点を取得
+        // 自分の打点を取得
         const yourScore = this.getYourScore(rule, fu, han, kyotaku, youAreParent);
         // 要求打点を取得
         const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
@@ -281,7 +281,7 @@
     }
 
     function getYourScore(rule, fu, han, kyotaku, youAreParent) {
-        console.log("----------- あなたの打点を取得 ----------- ");
+        console.log("----------- 自分の打点を取得 ----------- ");
         var yourScore;
 
         console.log("ルール = " + rule);
@@ -306,12 +306,12 @@
             return undefined;
         }
 
-        console.log("あなたの打点 = " + yourScore);
+        console.log("自分の打点 = " + yourScore);
         console.log("供託 = " + kyotaku);
 
         yourScore += parseInt(kyotaku);
 
-        console.log("供託追加後のあなたの打点 = " + yourScore);
+        console.log("供託追加後の自分の打点 = " + yourScore);
 
         return yourScore;
     }
@@ -401,7 +401,7 @@
 
     function result(yourScore, requiredScore) {
         console.log("----------- 判定 ----------- ");
-        console.log("あなたの打点 = " + yourScore);
+        console.log("自分の打点 = " + yourScore);
         console.log("要求打点 = " + requiredScore);
 
         const result = document.querySelector('#result');
@@ -428,7 +428,7 @@
             result.textContent = "押し！";
             result.style.backgroundColor = "#2cb696";
 
-            note.textContent = "あなたの打点(" + yourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + yourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
 
         } else {
@@ -436,7 +436,7 @@
             result.textContent = "降り！";
             result.style.backgroundColor = "#C94055";
 
-            note.textContent = "あなたの打点(" + yourScore + "点) < 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + yourScore + "点) < 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
         }
     }
