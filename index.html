@@ -464,6 +464,7 @@
 
         resultArea.style.color = "#fff";
         resultArea.style.fontSize = "1.5rem";
+        resultArea.style.fontWeight = "bold";
 
         if (totalYourScore === undefined || adjustedRequiredScore === undefined) {
             resultArea.textContent = "判定できません";
@@ -478,6 +479,7 @@
         note.style.fontSize = "0.8rem";
         note.style.marginTop = "10px";
         note.style.textAlign = "center";
+        note.style.fontWeight = "normal";
 
         if (totalYourScore >= adjustedRequiredScore) {
             console.log("押し！");
