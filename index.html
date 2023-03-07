@@ -271,10 +271,13 @@
         // 要求打点を取得
         const requiredScore = this.getRequiredScore(rule, ba, yourPoint, hojuRate, junme, oponentIsParent, youAreParent, isRyokei, isDora);
 
+        // 結果の詳細のテキストを作成
+        const details = this.createDetails();
+
         // 0.5秒待機してから、結果を表示
         setTimeout(function () {
 
-            this.result(yourScore, requiredScore);
+            this.result(yourScore, requiredScore, details);
 
             result.style.display = "block";
         }, 500);
@@ -399,7 +402,7 @@
         return result;
     }
 
-    function result(yourScore, requiredScore) {
+    function result(yourScore, requiredScore, details) {
         console.log("----------- 判定 ----------- ");
         console.log("自分の打点 = " + yourScore);
         console.log("要求打点 = " + requiredScore);
@@ -429,6 +432,7 @@
             result.style.backgroundColor = "#2cb696";
 
             note.textContent = "自分の打点(" + yourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
+            // note.textContent = details;
             result.appendChild(note);
 
         } else {
@@ -439,5 +443,14 @@
             note.textContent = "自分の打点(" + yourScore + "点) < 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
         }
+    }
+
+    function createDetails() {
+        details = "";
+
+        // ダミーデータ
+        details = "自分の打点(9999点) ≧ 要求打点(8888点)\\ntest";
+
+        return details;
     }
 </script>
