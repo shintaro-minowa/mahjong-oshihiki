@@ -283,7 +283,7 @@
         // 0.5秒待機してから、結果を表示
         setTimeout(function () {
 
-            this.result(totalYourScore, adjustedRequiredScore, details);
+            this.result(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore);
 
             result.style.display = "block";
         }, 500);
@@ -430,9 +430,9 @@
         return result;
     }
 
-    function result(totalScore, requiredScore, details) {
+    function result(rule, ba, fu, han, kyotaku, yourPoint, isRyokei, hojuRate, junme, youAreParent, oponentIsParent, isDora, yourScore, totalYourScore, requiredScore, horaValue, adjustedRequiredScore) {
         console.log("----------- 判定 ----------- ");
-        console.log("自分の打点 = " + totalScore);
+        console.log("自分の打点 = " + totalYourScore);
         console.log("要求打点 = " + requiredScore);
 
         const result = document.querySelector('#result');
@@ -440,7 +440,7 @@
         result.style.color = "#fff";
         result.style.fontSize = "1.5rem";
 
-        if (totalScore === undefined || requiredScore === undefined) {
+        if (totalYourScore === undefined || requiredScore === undefined) {
             result.textContent = "判定できません";
             result.style.backgroundColor = "#880000";
             console.log("判定できません");
@@ -454,12 +454,12 @@
         note.style.marginTop = "10px";
         note.style.textAlign = "center";
 
-        if (totalScore >= requiredScore) {
+        if (totalYourScore >= requiredScore) {
             console.log("押し！");
             result.textContent = "押し！";
             result.style.backgroundColor = "#2cb696";
 
-            note.textContent = "自分の打点(" + totalScore + "点) ≧ 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + totalYourScore + "点) ≧ 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
 
         } else {
@@ -467,7 +467,7 @@
             result.textContent = "降り！";
             result.style.backgroundColor = "#C94055";
 
-            note.textContent = "自分の打点(" + totalScore + "点) < 要求打点(" + requiredScore + "点)";
+            note.textContent = "自分の打点(" + totalYourScore + "点) < 要求打点(" + requiredScore + "点)";
             result.appendChild(note);
         }
     }
