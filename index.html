@@ -11,48 +11,106 @@
     <title>麻雀 押し引き判定（副露 vs リーチ）</title>
     <!-- Bootstrap CSSを読み込む -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
         .form-check-input:checked {
-            background-color: #238F76 !important;
-            border-color: #238F76 !important;
+            background-color: #4CAF50;
+            border-color: #4CAF50;
         }
 
         .btn-primary {
-            background-color: #238F76 !important;
-            border-color: #238F76 !important;
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            border-color: #45a049;
         }
 
         .form-label {
-            font-weight: bold;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .navbar {
+            background-color: #4CAF50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 700;
+        }
+
+        #form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+        }
+
+        #resultArea,
+        #detailsArea {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
         }
 
         footer a {
-            color: gray;
+            color: #bdc3c7;
+            transition: color 0.3s ease;
         }
 
         footer a:hover {
-            color: #555;
+            color: #ecf0f1;
+            text-decoration: none;
         }
 
+        #detailsSettingsLink {
+            color: #4CAF50;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        #detailsSettingsLink:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" style="font-weight: bold;">麻雀 押し引き判定<span style="font-size: 0.8em;">（副露 vs
-                        リーチ）</span></a>
+                <a class="navbar-brand">麻雀 押し引き判定<span class="fs-6">（副露 vs リーチ）</span></a>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <form id="form" class="bg-white rounded-3 p-4">
+    <div class="container flex-grow-1">
+        <form id="form" class="bg-white rounded-3 p-4 mt-4">
             <div class="mb-3">
                 <label class="form-label">自分 vs 相手</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="oyako" id="oyako-1" value="1"
-                        checked>
+                    <input class="form-check-input" type="radio" name="oyako" id="oyako-1" value="1" checked>
                     <label class="form-check-label" for="oyako-1">子 vs 子</label>
                 </div>
                 <div class="form-check">
@@ -238,19 +296,19 @@
         </form>
     </div>
 
-    <footer class="bg-white py-3 mt-auto">
-        <div class="container d-flex justify-content-center">
+    <footer class="py-3 mt-auto">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p>参考文献</p>
+                    <p class="mb-1">参考文献</p>
                     <ul class="list-unstyled">
-                        <li><a href="https://amzn.to/2IYJhtJ"> 「統計学」のマージャン戦術</a></li>
-                        <li><a href="https://note.com/unimaru_shikura/n/nf759b8f1a0c7">副露テンパイ vs リーチ 押し引き表</a></li>
+                        <li><a href="https://amzn.to/2IYJhtJ" class="text-decoration-none">「統計学」のマージャン戦術</a></li>
+                        <li><a href="https://note.com/unimaru_shikura/n/nf759b8f1a0c7"
+                                class="text-decoration-none">副露テンパイ vs リーチ 押し引き表</a></li>
                     </ul>
-                    <br>
-                    <p>作者</p>
+                    <p class="mb-1 mt-3">作者</p>
                     <ul class="list-unstyled">
-                        <li><a href="https://twitter.com/minotchi">みのっち</a></li>
+                        <li><a href="https://twitter.com/minotchi" class="text-decoration-none">みのっち</a></li>
                     </ul>
                 </div>
             </div>
