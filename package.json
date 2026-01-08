@@ -1,0 +1,9 @@
+{
+  "name": "mahjong-oshihiki",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mahjong Oshihiki Tool",
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
