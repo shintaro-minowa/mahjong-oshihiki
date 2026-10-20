@@ -3,3 +3,28 @@
 
 [build.environment]
   NODE_VERSION = "24"
+
+# 旧ドメイン oshihiki.com は新URLへ恒久転送する（2027-12-03で失効予定）
+[[redirects]]
+  from = "https://oshihiki.com/*"
+  to = "https://oshihiki.smartchat.co.jp/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://oshihiki.com/*"
+  to = "https://oshihiki.smartchat.co.jp/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.oshihiki.com/*"
+  to = "https://oshihiki.smartchat.co.jp/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.oshihiki.com/*"
+  to = "https://oshihiki.smartchat.co.jp/:splat"
+  status = 301
+  force = true
